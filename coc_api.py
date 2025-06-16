@@ -1,22 +1,31 @@
 import requests
 import os
 from urllib.parse import quote
-from dotenv import load_dotenv
 
-load_dotenv()
-
+# Load token
 COC_API_TOKEN = os.getenv("COC")
+if not COC_API_TOKEN:
+    raise ValueError("COC token is missing. Set it in environment variables.")
+
+BASE_URL = "https://proxy.royaleapi.dev/v1"
 HEADERS = {
     "Authorization": f"Bearer {COC_API_TOKEN}"
 }
-BASE_URL = "https://cocproxy.royaleapi.dev/v1"
 
-def get_player(player_tag):
-    url = f"{BASE_URL}/players/{quote(player_tag)}"
-    response = requests.get(url, headers=HEADERS)
-    return response.json() if response.status_code == 200 else None
+def get_player(player_tag: str):
+    try:
+        url = f"{BASE_URL}/players/{quote(player_tag)}"
+        response = requests.get(url, headers=HEADERS, timeout=10)
+        return response.json()
+    except requests.RequestException as e:
+        print(f"[ERROR] Player API failed: {e}")
+        return None
 
-def get_clan(clan_tag):
-    url = f"{BASE_URL}/clans/{quote(clan_tag)}"
-    response = requests.get(url, headers=HEADERS)
-    return response.json() if response.status_code == 200 else None
+def get_clan(clan_tag: str):
+    try:
+        url = f"{BASE_URL}/clans/{quote(clan_tag)}"
+        response = requests.get(url, headers=HEADERS, timeout=10)
+        return response.json()
+    except requests.RequestException as e:
+        print(f"[ERROR] Clan API failed: {e}")
+        return None
