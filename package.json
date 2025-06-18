@@ -1,0 +1,19 @@
+{
+  "name": "clash-coc-ticket-bot",
+  "version": "1.0.0",
+  "description": "A global Discord ticket bot for Clash of Clans clan applications, with Supabase and Royal API integration.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.7",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "node-fetch": "^3.3.2"
+  }
+}
